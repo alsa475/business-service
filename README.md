@@ -2,7 +2,7 @@
 
 Set up:
 
-Clone this repo, navigate to root directory
+Clone this repo and navigate to root directory
 
 Create virtual environment and activate it
 
