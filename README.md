@@ -2,11 +2,11 @@
 
 Set up:
 
-Clone this repo, navigate to root directory
-Create virtual environment and activate it
+Clone this repo, navigate to root directory\
+Create virtual environment and activate it\
 
-$ python3 -m venv env
-$ . env/bin/activate
+$ python3 -m venv env\
+$ . env/bin/activate\
 
 Install requirements.txt
 
