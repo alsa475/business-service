@@ -12,12 +12,9 @@ CORS(app)
 def get_results():
 
     # Get the data from the GET request
-    
     location = request.args.get('location')
     term = request.args.get('term')
     limit = 5
-
-    print(term, location)
 
     # Call Yelp API 
     endpoint = "https://api.yelp.com/v3/businesses/search?term={}&location={}&limit={}".format(term, location, limit)
