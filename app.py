@@ -8,6 +8,33 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route("/results", methods=['GET'])
+def get_results():
+
+    # Get the data from the GET request
+    
+    location = request.args.get('location')
+    term = request.args.get('term')
+    limit = 5
+
+    print(term, location)
+
+    # Call Yelp API 
+    endpoint = "https://api.yelp.com/v3/businesses/search?term={}&location={}&limit={}".format(term, location, limit)
+    headers = {"Authorization": "Bearer 04xem-7qB0W84jZs9uTYDsTUZj3gLJPthl5yi5IXqo_D0oLQ1He4ImOB5D5G3Vm9G9yGQ7V1YrfMewnqcrhFw5GgotlPjOMGUZ-P0ikPehTd5Y9IVA_NVLRreQJtX3Yx"}
+    r = requests.get(url=endpoint, headers=headers)
+
+    # Store Yelp search results
+    search_results = r.json()  
+
+    # Get business names and ratings
+    return_results = []
+    for i in range(0,5):
+        return_results.append({"business": search_results["businesses"][i]["name"], "rating": search_results["businesses"][i]["rating"]})
+
+    return json.dumps(return_results)
+
+
 @app.route("/", methods=['POST'])
 def results():
 
