@@ -11,17 +11,26 @@ CORS(app)
 def get_results():
 
     # Get the data from the GET request
+    latitude = request.args.get('latitude')
+    longitude = request.args.get('longitude')
     location = request.args.get('location')
     term = request.args.get('term')
     limit = 5
 
-    # Call Yelp API 
-    endpoint = "https://api.yelp.com/v3/businesses/search?term={}&location={}&limit={}".format(term, location, limit)
+    # Call Yelp API if latitude and longitude are provided
+    if latitude:
+        endpoint = "https://api.yelp.com/v3/businesses/search?term={}&latitude={}&longitude={}&limit={}".format(term, latitude, longitude, limit)
+
+    # Call Yelp API for given location if latitude and logitude are not provided
+    else:
+        endpoint = "https://api.yelp.com/v3/businesses/search?term={}&location={}&limit={}".format(term, location, limit)
+       
+        
     headers = {"Authorization": "Bearer 04xem-7qB0W84jZs9uTYDsTUZj3gLJPthl5yi5IXqo_D0oLQ1He4ImOB5D5G3Vm9G9yGQ7V1YrfMewnqcrhFw5GgotlPjOMGUZ-P0ikPehTd5Y9IVA_NVLRreQJtX3Yx"}
     r = requests.get(url=endpoint, headers=headers)
 
     # Store Yelp search results
-    search_results = r.json()  
+    search_results = r.json()
 
     # Get business names and ratings
     return_results = []
