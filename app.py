@@ -32,9 +32,20 @@ def get_results():
     # Store Yelp search results
     search_results = r.json()
 
-    # Get business names and ratings
+    # Check if businesses have been found
+    if 'businesses' in search_results:
+        limit = len(search_results['businesses'])
+
+    # If no businesses have been found
+    else:
+        limit = 0
+    
+    # Initialize empty array for results
+    # If no businesses are found, the empty array will be returned
     return_results = []
-    for i in range(0,5):
+
+    # Get business names and ratings
+    for i in range(0, limit):
         return_results.append({"business": search_results["businesses"][i]["name"], "rating": search_results["businesses"][i]["rating"]})
 
     return jsonify(return_results)
